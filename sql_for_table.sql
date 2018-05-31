@@ -1,2 +1,21 @@
-select id, max(value) as value, max(date) as date from t
-group by id
+select id, 
+	   value, 
+	   Date 
+  from (select id, 
+			   value, 
+			   date,
+               max(value) over (partition by id) as num
+          from table_t) as t1
+ where value=num
+;
+ 
+ select id,
+        value,
+        Date 
+   from (select id, 
+				value, 
+				Date,
+                row_number() over (partition by id order by value desc) as num
+           from table_t) as t
+  where num=1
+;
