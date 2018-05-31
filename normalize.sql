@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS tweet(id INTEGER PRIMARY KEY,
                         country_code TEXT,
                         created_at TIMESTAMP,
                         tweet_sentiment INTEGER,
-                        FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE NO ACTION);
+                        FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE NO ACTION
+                        FOREIGN KEY (media_id) REFERENCES media(id) ON DELETE CASCADE ON UPDATE NO ACTION);
 
 UPDATE tweet_old
 SET media_id=(SELECT id FROM media WHERE tweet_old.display_url=media.display_url);
